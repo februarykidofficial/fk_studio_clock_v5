@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Glass Clock</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for a futuristic look -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap">
+    <style>
+        :root {
+            --neon-color: #00FFFF;
+            --body-font: 'Oxanium', monospace;
+            --on-air-color: #FF0000;
+        }
+
+        body {
+            font-family: var(--body-font);
+        }
+
+        /* --- Background Presets (15 Total) --- */
+        .bg-preset-purple-cyan {
+            background: linear-gradient(45deg, #0f172a, #0c4a6e, #0f172a, #7e22ce);
+            background-size: 400% 400%;
+            animation: gradient-anim-1 15s ease infinite;
+        }
+
+        .bg-preset-green {
+            background: linear-gradient(45deg, #0d0001, #0a3d00, #001201, #0f3d00);
+            background-size: 400% 400%;
+            animation: gradient-anim-2 10s ease infinite;
+        }
+        
+        .bg-preset-red-orange {
+            background: linear-gradient(45deg, #1a0808, #8b1800, #4d1000, #f8a02a);
+            background-size: 400% 400%;
+            animation: gradient-anim-3 20s ease infinite;
+        }
+        
+        .bg-preset-ocean {
+            background: linear-gradient(45deg, #0d1e3a, #005691, #00457a, #0093d9);
+            background-size: 400% 400%;
+            animation: gradient-anim-4 18s ease infinite;
+        }
+        
+        .bg-preset-sunset {
+            background: linear-gradient(45deg, #3a0d1e, #d9534f, #ff6b6b, #ffe66d);
+            background-size: 400% 400%;
+            animation: gradient-anim-5 16s ease infinite;
+        }
+        
+        .bg-preset-forest {
+            background: linear-gradient(45deg, #1d4000, #4b6f44, #1d4000, #88c070);
+            background-size: 400% 400%;
+            animation: gradient-anim-6 22s ease infinite;
+        }
+
+        .bg-preset-magenta-blue {
+            background: linear-gradient(45deg, #4b0082, #8a2be2, #0000ff, #ff00ff);
+            background-size: 400% 400%;
+            animation: gradient-anim-7 19s ease infinite;
+        }
+
+        .bg-preset-gold {
+            background: linear-gradient(45deg, #2b2b2b, #444444, #daa520, #ffd700);
+            background-size: 400% 400%;
+            animation: gradient-anim-8 25s ease infinite;
+        }
+
+        .bg-preset-volcano {
+            background: linear-gradient(45deg, #331a00, #800000, #ff4500, #ffa500);
+            background-size: 400% 400%;
+            animation: gradient-anim-9 14s ease infinite;
+        }
+
+        .bg-preset-sky {
+            background: linear-gradient(45deg, #87ceeb, #add8e6, #f0f8ff, #b0e0e6);
+            background-size: 400% 400%;
+            animation: gradient-anim-10 20s ease infinite;
+        }
+        
+        .bg-preset-lime-teal {
+            background: linear-gradient(45deg, #0f3d3d, #20b2aa, #3cb371, #98fb98);
+            background-size: 400% 400%;
+            animation: gradient-anim-11 17s ease infinite;
+        }
+
+        .bg-preset-galaxy {
+            background: linear-gradient(45deg, #0a041f, #2e1a53, #4c2f82, #6a40a8);
+            background-size: 400% 400%;
+            animation: gradient-anim-12 30s ease infinite;
+        }
+
+        .bg-preset-peach {
+            background: linear-gradient(45deg, #ffd1b6, #ffad82, #ff8c61, #ff7f50);
+            background-size: 400% 400%;
+            animation: gradient-anim-13 15s ease infinite;
+        }
+
+        .bg-preset-ice {
+            background: linear-gradient(45deg, #e0ffff, #b0e0e6, #add8e6, #87ceeb);
+            background-size: 400% 400%;
+            animation: gradient-anim-14 25s ease infinite;
+        }
+
+        .bg-preset-dark-static {
+            background: #0f172a;
+            animation: none;
+        }
+        
+        /* --- Keyframe Animations for Presets --- */
+        @keyframes gradient-anim-1 {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes gradient-anim-2 {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes gradient-anim-3 {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes gradient-anim-4 {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes gradient-anim-5 {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes gradient-anim-6 {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes gradient-anim-7 {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes gradient-anim-8 {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes gradient-anim-9 {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes gradient-anim-10 {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes gradient-anim-11 {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes gradient-anim-12 {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes gradient-anim-13 {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes gradient-anim-14 {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        /* --- End Background Presets --- */
+        
+        /* New keyframe for pulsing border effect */
+        @keyframes border-pulse {
+            0% { border: 1px solid rgba(255, 255, 255, 0.1); }
+            50% { border: 1px solid var(--on-air-color); box-shadow: 0 0 10px var(--on-air-color); }
+            100% { border: 1px solid rgba(255, 255, 255, 0.1); }
+        }
+
+        .glass-container {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            position: relative;
+            transition: transform 0.5s ease-in-out; /* Added for smooth zoom */
+        }
+
+        .glass-container.fullscreen-zoom {
+            transform: scale(1.4);
+        }
+
+        .neon-text {
+            text-shadow: 0 0 5px var(--neon-color), 0 0 10px var(--neon-color), 0 0 20px var(--neon-color), 0 0 40px var(--neon-color), 0 0 80px var(--neon-color);
+        }
+        
+        .on-air-indicator {
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.37);
+            padding: 4px 12px;
+            border-radius: 0.8rem;
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: var(--on-air-color);
+            transition: opacity 0.3s ease;
+        }
+        
+        .on-air-indicator .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--on-air-color);
+            box-shadow: 0 0 5px var(--on-air-color), 0 0 10px var(--on-air-color), 0 0 15px var(--on-air-color);
+        }
+
+        .progress-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            width: 90%;
+            pointer-events: none;
+        }
+        
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(0, 255, 255, 0.2);
+            border-radius: 30%;
+            margin: 0 2.5px;
+            transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .progress-dot.active {
+            background-color: var(--neon-color);
+            box-shadow: 0 0 12px var(--neon-color);
+        }
+
+        .glass-btn {
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.37);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .glass-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.5);
+        }
+
+        .glass-btn:active {
+            transform: scale(0.95);
+        }
+
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        /* New styling for color picker and select */
+        .color-picker-label {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        #color-picker, #on-air-color-picker {
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border-radius: 50%;
+            overflow: hidden;
+            outline: none;
+        }
+        #color-picker::-webkit-color-swatch-wrapper, #on-air-color-picker::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+        #color-picker::-webkit-color-swatch, #on-air-color-picker::-webkit-color-swatch {
+            border: none;
+            border-radius: 50%;
+        }
+
+        .glass-select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
+            cursor: pointer;
+            width: 100%;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .glass-select:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-input {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .glass-input:focus {
+            border-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-button {
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes pulse-once {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- Updated to apply animation to both elements --- */
+        .border-pulse-animation {
+            animation: border-pulse 1.5s ease-in-out infinite;
+        }
+        
+        /* New styling for section dividers */
+        .section-divider {
+            border: none;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 1.5px;
+        }
+        
+        /* Enhance heading visibility */
+        .settings-heading {
+            font-size: 1.5rem; /* Increased font size */
+            font-weight: 700; /* Bolder font */
+            margin-bottom: 1rem;
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen text-white p-4 bg-preset-purple-cyan">
+
+    <!-- Fullscreen Button (Top Right) -->
+    <button id="fullscreen-btn" class="glass-btn absolute top-4 right-4 p-3 rounded-full md:top-8 md:right-8 z-20">
+        <!-- Fullscreen Icon (Inline SVG) -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-maximize">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+        </svg>
+    </button>
+
+    <div id="main-clock-container" class="glass-container p-10 md:p-16 rounded-3xl w-full max-w-2xl space-y-8 text-center">
+
+        <!-- ON AIR Indicator -->
+        <div id="on-air-indicator" class="on-air-indicator z-10 hidden">
+            <div id="on-air-dot" class="dot"></div>
+            <span id="on-air-text">ON AIR</span>
+        </div>
+
+        <!-- Main Time Display -->
+        <div class="space-y-2 z-10 relative">
+            <p id="current-time" class="neon-text text-7xl md:text-9xl leading-none tracking-wide font-normal"></p>
+            <p id="current-date" class="text-3xl md:text-4xl font-light text-white opacity-80"></p>
+        </div>
+        
+        <!-- The new progress bar with dots -->
+        <div id="progress-dots-container" class="progress-dots"></div>
+
+    </div>
+
+    <!-- Settings Button (Bottom Right) -->
+    <button id="settings-btn" class="glass-btn absolute bottom-4 right-4 p-3 rounded-full md:bottom-8 md:right-8 z-20">
+        <!-- Settings Icon (Inline SVG) -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+    </button>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none">
+        <div class="modal-content w-full max-w-sm p-6 rounded-2xl">
+            <h2 class="text-2xl font-semibold mb-4 text-center">Settings</h2>
+
+            <!-- Main Display Settings -->
+            <div class="mb-6">
+                <h3 class="settings-heading">Main Display</h3>
+                <!-- Neon Color Picker -->
+                <div class="mb-4">
+                    <label class="text-lg mb-2 color-picker-label">Neon Color:
+                        <input type="color" id="color-picker" value="#00FFFF">
+                    </label>
+                </div>
+                <!-- Font Style Selector -->
+                <div>
+                    <p class="text-lg mb-2">Font Style:</p>
+                    <select id="font-select" class="glass-select">
+                        <option value="'Oxanium', monospace" style="font-family: 'Oxanium', monospace;">Oxanium</option>
+                        <option value="'Orbitron', sans-serif" style="font-family: 'Orbitron', sans-serif;">Orbitron</option>
+                        <option value="'Russo One', sans-serif" style="font-family: 'Russo One', sans-serif;">Russo One</option>
+                        <option value="'Share Tech Mono', monospace" style="font-family: 'Share Tech Mono', monospace;">Share Tech Mono</option>
+                    </select>
+                </div>
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- Background Settings -->
+            <div class="mb-6">
+                <h3 class="settings-heading">Background</h3>
+                <p class="text-lg mb-2">Background Preset:</p>
+                <select id="bg-preset-select" class="glass-select">
+                    <option value="bg-preset-purple-cyan" selected>Purple-Cyan</option>
+                    <option value="bg-preset-green">Green</option>
+                    <option value="bg-preset-red-orange">Red-Orange</option>
+                    <option value="bg-preset-ocean">Ocean</option>
+                    <option value="bg-preset-sunset">Sunset</option>
+                    <option value="bg-preset-forest">Forest</option>
+                    <option value="bg-preset-magenta-blue">Magenta-Blue</option>
+                    <option value="bg-preset-gold">Gold</option>
+                    <option value="bg-preset-volcano">Volcano</option>
+                    <option value="bg-preset-sky">Sky</option>
+                    <option value="bg-preset-lime-teal">Lime-Teal</option>
+                    <option value="bg-preset-galaxy">Galaxy</option>
+                    <option value="bg-preset-peach">Peach</option>
+                    <option value="bg-preset-ice">Ice</option>
+                    <option value="bg-preset-dark-static">Dark Static</option>
+                </select>
+            </div>
+            
+            <hr class="section-divider">
+            
+            <!-- Time & Format -->
+            <div class="mb-6">
+                <h3 class="settings-heading">Time & Format</h3>
+                <!-- Time Format Toggle -->
+                <div class="flex items-center justify-between">
+                    <p class="text-lg">24-hour time:</p>
+                    <label class="inline-flex relative items-center cursor-pointer">
+                        <input type="checkbox" id="time-format-toggle" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-cyan-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-500"></div>
+                    </label>
+                </div>
+            </div>
+
+            <hr class="section-divider">
+            
+            <!-- Schedule Settings -->
+            <div class="mb-6">
+                <h3 class="settings-heading">"ON AIR" Schedule</h3>
+                <!-- Schedule Enable Toggle -->
+                <div class="flex items-center justify-between mb-4">
+                    <p class="text-lg">Enable Schedule:</p>
+                    <label class="inline-flex relative items-center cursor-pointer">
+                        <input type="checkbox" id="schedule-enabled-toggle" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-red-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-500"></div>
+                    </label>
+                </div>
+                <!-- Schedule List -->
+                <div id="schedule-list" class="space-y-2">
+                    <!-- Schedule items will be rendered here by JS -->
+                </div>
+                <button id="add-schedule-btn" class="w-full mt-4 glass-button text-white font-bold py-2 px-4 rounded-xl">Add New Schedule</button>
+            </div>
+            
+            <hr class="section-divider">
+            
+            <!-- "ON AIR" Indicator Settings (moved to the end) -->
+            <div class="mb-6">
+                <h3 class="settings-heading">"ON AIR" Indicator</h3>
+                <!-- Manual ON AIR Toggle -->
+                <div class="flex items-center justify-between mb-4">
+                    <p class="text-lg">Manual "ON AIR":</p>
+                    <label class="inline-flex relative items-center cursor-pointer">
+                        <input type="checkbox" id="manual-on-air-toggle" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-red-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-500"></div>
+                    </label>
+                </div>
+                <div class="space-y-4" id="on-air-controls">
+                    <!-- Text Input -->
+                    <div>
+                        <p class="text-lg mb-1">Indicator Text:</p>
+                        <input type="text" id="on-air-text-input" class="glass-input" value="ON AIR">
+                    </div>
+                    <!-- Color Picker -->
+                    <div class="flex items-center justify-between">
+                        <p class="text-lg">Indicator Color:</p>
+                        <input type="color" id="on-air-color-picker" value="#FF0000">
+                    </div>
+                    <!-- Pulse Toggle -->
+                    <div class="flex items-center justify-between">
+                        <p class="text-lg">Pulse Animation:</p>
+                        <label class="inline-flex relative items-center cursor-pointer">
+                            <input type="checkbox" id="on-air-pulse-toggle" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-red-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-500"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Close button -->
+            <div class="text-center">
+                <button id="close-modal-btn" class="mt-4 w-full glass-btn px-4 py-2 rounded-xl">Close</button>
+            </div>
+
+        </div>
+    </div>
+    
+    <!-- Edit/Add Schedule Modal -->
+    <div id="edit-schedule-modal" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none">
+        <div class="modal-content w-full max-w-sm p-6 rounded-2xl">
+            <h2 id="edit-schedule-heading" class="text-2xl font-semibold mb-4 text-center">Add Schedule</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-lg mb-1">Start Time:</label>
+                    <input type="time" id="start-time-input" class="glass-input">
+                </div>
+                <div>
+                    <label class="block text-lg mb-1">End Time:</label>
+                    <input type="time" id="end-time-input" class="glass-input">
+                </div>
+                <div>
+                    <p class="text-lg mb-1">Days:</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        <label class="flex items-center space-x-2"><input type="checkbox" data-day="0" class="rounded text-red-500 focus:ring-red-500"><span>Sunday</span></label>
+                        <label class="flex items-center space-x-2"><input type="checkbox" data-day="1" class="rounded text-red-500 focus:ring-red-500"><span>Monday</span></label>
+                        <label class="flex items-center space-x-2"><input type="checkbox" data-day="2" class="rounded text-red-500 focus:ring-red-500"><span>Tuesday</span></label>
+                        <label class="flex items-center space-x-2"><input type="checkbox" data-day="3" class="rounded text-red-500 focus:ring-red-500"><span>Wednesday</span></label>
+                        <label class="flex items-center space-x-2"><input type="checkbox" data-day="4" class="rounded text-red-500 focus:ring-red-500"><span>Thursday</span></label>
+                        <label class="flex items-center space-x-2"><input type="checkbox" data-day="5" class="rounded text-red-500 focus:ring-red-500"><span>Friday</span></label>
+                        <label class="flex items-center space-x-2"><input type="checkbox" data-day="6" class="rounded text-red-500 focus:ring-red-500"><span>Saturday</span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-between gap-4 mt-6">
+                <button id="save-schedule-btn" class="flex-1 glass-button text-white font-bold py-2 px-4 rounded-xl">Save</button>
+                <button id="cancel-schedule-btn" class="flex-1 glass-button text-white font-bold py-2 px-4 rounded-xl">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // --- DOM Elements ---
+            const currentTimeEl = document.getElementById('current-time');
+            const currentDateEl = document.getElementById('current-date');
+            const dotsContainer = document.getElementById('progress-dots-container');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const settingsBtn = document.getElementById('settings-btn');
+            const settingsModal = document.getElementById('settings-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const timeFormatToggle = document.getElementById('time-format-toggle');
+            const colorPicker = document.getElementById('color-picker');
+            const fontSelect = document.getElementById('font-select');
+            const bgPresetSelect = document.getElementById('bg-preset-select');
+            const root = document.documentElement;
+            const body = document.body;
+
+            // ON AIR Elements
+            const onAirIndicator = document.getElementById('on-air-indicator');
+            const onAirText = document.getElementById('on-air-text');
+            const onAirDot = document.getElementById('on-air-dot');
+            const onAirTextInput = document.getElementById('on-air-text-input');
+            const onAirColorPicker = document.getElementById('on-air-color-picker');
+            const onAirPulseToggle = document.getElementById('on-air-pulse-toggle');
+            const mainClockContainer = document.getElementById('main-clock-container');
+            const scheduleEnabledToggle = document.getElementById('schedule-enabled-toggle');
+            const manualOnAirToggle = document.getElementById('manual-on-air-toggle');
+
+            // Schedule Elements
+            const scheduleList = document.getElementById('schedule-list');
+            const addScheduleBtn = document.getElementById('add-schedule-btn');
+            const editScheduleModal = document.getElementById('edit-schedule-modal');
+            const editScheduleHeading = document.getElementById('edit-schedule-heading');
+            const startTimeInput = document.getElementById('start-time-input');
+            const endTimeInput = document.getElementById('end-time-input');
+            const dayCheckboxes = document.querySelectorAll('#edit-schedule-modal input[type="checkbox"]');
+            const saveScheduleBtn = document.getElementById('save-schedule-btn');
+            const cancelScheduleBtn = document.getElementById('cancel-schedule-btn');
+            
+            let editingIndex = -1;
+
+            // --- Default and Stored Data ---
+            let schedule = JSON.parse(localStorage.getItem('onAirSchedule')) || [
+                { start: '07:50', end: '08:55', days: [1, 2, 3, 4, 5] },
+                { start: '09:07', end: '10:35', days: [1, 2, 3, 4, 5] },
+                { start: '21:00', end: '22:30', days: [1] },
+                { start: '20:00', end: '21:30', days: [4] },
+            ];
+            
+            // Initial load for manual toggle state from localStorage
+            manualOnAirToggle.checked = JSON.parse(localStorage.getItem('manualOnAirState')) || false;
+            
+            // --- Helper Functions ---
+            const allBgPresets = [
+                'bg-preset-purple-cyan', 'bg-preset-green', 'bg-preset-red-orange',
+                'bg-preset-ocean', 'bg-preset-sunset', 'bg-preset-forest',
+                'bg-preset-magenta-blue', 'bg-preset-gold', 'bg-preset-volcano',
+                'bg-preset-sky', 'bg-preset-lime-teal', 'bg-preset-galaxy',
+                'bg-preset-peach', 'bg-preset-ice', 'bg-preset-dark-static'
+            ];
+
+            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+            function saveSchedule() {
+                localStorage.setItem('onAirSchedule', JSON.stringify(schedule));
+                renderSchedule();
+            }
+
+            function renderSchedule() {
+                scheduleList.innerHTML = '';
+                schedule.forEach((item, index) => {
+                    const daysString = item.days.sort().map(d => dayNames[d]).join(', ');
+                    const scheduleItem = document.createElement('div');
+                    scheduleItem.className = 'schedule-item';
+                    scheduleItem.innerHTML = `
+                        <div>
+                            <p class="font-bold">${item.start} - ${item.end}</p>
+                            <p class="text-sm opacity-80">${daysString}</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button data-index="${index}" class="edit-btn text-cyan-400 hover:text-cyan-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            </button>
+                            <button data-index="${index}" class="delete-btn text-red-500 hover:text-red-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                            </button>
+                        </div>
+                    `;
+                    scheduleList.appendChild(scheduleItem);
+                });
+                
+                // Add event listeners to the new buttons
+                scheduleList.querySelectorAll('.edit-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const index = e.currentTarget.dataset.index;
+                        openEditModal(index);
+                    });
+                });
+                scheduleList.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const index = e.currentTarget.dataset.index;
+                        deleteSchedule(index);
+                    });
+                });
+            }
+
+            function openEditModal(index = -1) {
+                editingIndex = index;
+                editScheduleModal.classList.remove('opacity-0', 'pointer-events-none');
+
+                if (index === -1) {
+                    editScheduleHeading.innerText = 'Add Schedule';
+                    startTimeInput.value = '08:00';
+                    endTimeInput.value = '09:00';
+                    dayCheckboxes.forEach(cb => cb.checked = false);
+                } else {
+                    editScheduleHeading.innerText = 'Edit Schedule';
+                    const item = schedule[index];
+                    startTimeInput.value = item.start;
+                    endTimeInput.value = item.end;
+                    dayCheckboxes.forEach(cb => {
+                        cb.checked = item.days.includes(parseInt(cb.dataset.day));
+                    });
+                }
+            }
+
+            function closeEditModal() {
+                editScheduleModal.classList.add('opacity-0', 'pointer-events-none');
+            }
+
+            function saveScheduleItem() {
+                const newStart = startTimeInput.value;
+                const newEnd = endTimeInput.value;
+                const newDays = Array.from(dayCheckboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => parseInt(cb.dataset.day));
+
+                if (newStart && newEnd && newDays.length > 0) {
+                    const newItem = { start: newStart, end: newEnd, days: newDays };
+                    if (editingIndex === -1) {
+                        schedule.push(newItem);
+                    } else {
+                        schedule[editingIndex] = newItem;
+                    }
+                    saveSchedule();
+                    closeEditModal();
+                } else {
+                    console.error("Invalid schedule entry. Please fill all fields.");
+                    // In a real app, you would show a user-friendly error message.
+                }
+            }
+            
+            function deleteSchedule(index) {
+                schedule.splice(index, 1);
+                saveSchedule();
+            }
+
+            function isTimeInSchedule(now) {
+                const currentDay = now.getDay();
+                const currentHours = now.getHours();
+                const currentMinutes = now.getMinutes();
+
+                const nowMinutes = currentHours * 60 + currentMinutes;
+
+                return schedule.some(item => {
+                    if (item.days.includes(currentDay)) {
+                        const [startHours, startMinutes] = item.start.split(':').map(Number);
+                        const [endHours, endMinutes] = item.end.split(':').map(Number);
+                        
+                        const startMinutesTotal = startHours * 60 + startMinutes;
+                        const endMinutesTotal = endHours * 60 + endMinutes;
+
+                        return nowMinutes >= startMinutesTotal && nowMinutes < endMinutesTotal;
+                    }
+                    return false;
+                });
+            }
+
+            // --- Function to update the clock and progress dots ---
+            function updateClock() {
+                const now = new Date();
+                const seconds = now.getSeconds();
+                
+                // Format time and date based on the toggle state
+                const timeOptions = { 
+                    hour: '2-digit', 
+                    minute: '2-digit', 
+                    second: '2-digit', 
+                    hour12: !timeFormatToggle.checked 
+                };
+                
+                // Manually format the date to DD/MM/YYYY
+                const day = String(now.getDate()).padStart(2, '0');
+                const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+                const year = now.getFullYear();
+
+                const timeString = now.toLocaleTimeString('en-US', timeOptions);
+                const dateString = `${day}/${month}/${year}`;
+
+                currentTimeEl.innerText = timeString;
+                currentDateEl.innerText = dateString;
+                
+                // --- Update the ON AIR indicator based on schedule and manual toggle ---
+                const isManual = manualOnAirToggle.checked;
+                const isScheduled = scheduleEnabledToggle.checked && isTimeInSchedule(now);
+                const isOnAir = isManual || isScheduled;
+                const isPulsing = onAirPulseToggle.checked;
+
+                if (isOnAir) {
+                    onAirIndicator.classList.remove('hidden');
+                    if (isPulsing) {
+                        mainClockContainer.classList.add('border-pulse-animation');
+                        onAirIndicator.classList.add('border-pulse-animation'); // Apply to ON AIR indicator
+                    } else {
+                        mainClockContainer.classList.remove('border-pulse-animation');
+                        onAirIndicator.classList.remove('border-pulse-animation'); // Remove from ON AIR indicator
+                    }
+                } else {
+                    onAirIndicator.classList.add('hidden');
+                    mainClockContainer.classList.remove('border-pulse-animation');
+                    onAirIndicator.classList.remove('border-pulse-animation');
+                }
+                
+                // --- Update the progress dots for seconds with new animation ---
+                if (seconds === 0) {
+                    // Light up the first dot immediately for the new minute
+                    dots[0].classList.add('active');
+
+                    // Turn off the other dots in a fast, reverse sequence
+                    for (let i = 59; i > 0; i--) {
+                        setTimeout(() => {
+                            if (dots[i]) dots[i].classList.remove('active');
+                        }, (59 - i) * 10); // A small delay for each dot
+                    }
+                } else {
+                    // Normal update: light up the current dot and keep others as they are
+                    for (let i = 0; i < dots.length; i++) {
+                        if (i < seconds) {
+                            if (dots[i]) dots[i].classList.add('active');
+                        } else {
+                            if (dots[i]) dots[i].classList.remove('active');
+                        }
+                    }
+                }
+            }
+
+            // Create 60 dots for each second
+            for (let i = 0; i < 60; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('progress-dot');
+                dotsContainer.appendChild(dot);
+            }
+            const dots = dotsContainer.children;
+
+            // --- Button Event Listeners ---
+            fullscreenBtn.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(err => {
+                        console.error(`Error attempting to enable fullscreen mode: ${err.message} (${err.name})`);
+                    });
+                    mainClockContainer.classList.add('fullscreen-zoom');
+                } else {
+                    document.exitFullscreen();
+                    mainClockContainer.classList.remove('fullscreen-zoom');
+                }
+            });
+            
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement) {
+                    mainClockContainer.classList.remove('fullscreen-zoom');
+                }
+            });
+
+            settingsBtn.addEventListener('click', () => {
+                settingsModal.classList.remove('opacity-0', 'pointer-events-none');
+            });
+
+            closeModalBtn.addEventListener('click', () => {
+                settingsModal.classList.add('opacity-0', 'pointer-events-none');
+            });
+            
+            settingsModal.addEventListener('click', (e) => {
+                if (e.target === settingsModal) {
+                    settingsModal.classList.add('opacity-0', 'pointer-events-none');
+                }
+            });
+
+            addScheduleBtn.addEventListener('click', () => {
+                openEditModal();
+            });
+
+            saveScheduleBtn.addEventListener('click', saveScheduleItem);
+
+            cancelScheduleBtn.addEventListener('click', closeEditModal);
+            
+            editScheduleModal.addEventListener('click', (e) => {
+                if (e.target === editScheduleModal) {
+                    closeEditModal();
+                }
+            });
+
+            // --- Settings Functionality ---
+            
+            // Background preset selector
+            bgPresetSelect.addEventListener('change', (e) => {
+                // Remove all background classes from the body
+                body.classList.remove(...allBgPresets);
+                // Add the selected background class
+                body.classList.add(e.target.value);
+            });
+
+            // Time format toggle
+            timeFormatToggle.addEventListener('change', () => {
+                updateClock();
+            });
+
+            // Neon Color picker
+            colorPicker.addEventListener('input', (e) => {
+                const newColor = e.target.value;
+                root.style.setProperty('--neon-color', newColor);
+            });
+
+            // Font select
+            fontSelect.addEventListener('change', (e) => {
+                const newFont = e.target.value;
+                root.style.setProperty('--body-font', newFont);
+            });
+            
+            // --- ON AIR Indicator Settings ---
+            function updateOnAirIndicatorControls() {
+                const isPulsing = onAirPulseToggle.checked;
+                onAirDot.classList.toggle('pulse-animation', isPulsing);
+                root.style.setProperty('--on-air-color', onAirColorPicker.value);
+                onAirText.innerText = onAirTextInput.value || "ON AIR";
+            }
+            
+            // Initial state for on-air controls
+            updateOnAirIndicatorControls();
+
+            onAirTextInput.addEventListener('input', updateOnAirIndicatorControls);
+            onAirColorPicker.addEventListener('input', updateOnAirIndicatorControls);
+            onAirPulseToggle.addEventListener('change', updateOnAirIndicatorControls);
+            manualOnAirToggle.addEventListener('change', () => {
+                localStorage.setItem('manualOnAirState', manualOnAirToggle.checked);
+                updateClock();
+            });
+
+            // Schedule Toggle
+            scheduleEnabledToggle.addEventListener('change', () => {
+                updateClock();
+            });
+
+            // Start the clock and update it every second
+            setInterval(updateClock, 1000);
+            updateClock();
+            
+            // Initial render of the schedule
+            renderSchedule();
+        };
+    </script>
+</body>
+</html>
