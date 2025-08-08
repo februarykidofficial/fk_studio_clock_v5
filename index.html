@@ -34,25 +34,25 @@
             background-size: 400% 400%;
             animation: gradient-anim-2 10s ease infinite;
         }
-        
+
         .bg-preset-red-orange {
             background: linear-gradient(45deg, #1a0808, #8b1800, #4d1000, #f8a02a);
             background-size: 400% 400%;
             animation: gradient-anim-3 20s ease infinite;
         }
-        
+
         .bg-preset-ocean {
             background: linear-gradient(45deg, #0d1e3a, #005691, #00457a, #0093d9);
             background-size: 400% 400%;
             animation: gradient-anim-4 18s ease infinite;
         }
-        
+
         .bg-preset-sunset {
             background: linear-gradient(45deg, #3a0d1e, #d9534f, #ff6b6b, #ffe66d);
             background-size: 400% 400%;
             animation: gradient-anim-5 16s ease infinite;
         }
-        
+
         .bg-preset-forest {
             background: linear-gradient(45deg, #1d4000, #4b6f44, #1d4000, #88c070);
             background-size: 400% 400%;
@@ -82,7 +82,7 @@
             background-size: 400% 400%;
             animation: gradient-anim-10 20s ease infinite;
         }
-        
+
         .bg-preset-lime-teal {
             background: linear-gradient(45deg, #0f3d3d, #20b2aa, #3cb371, #98fb98);
             background-size: 400% 400%;
@@ -111,7 +111,7 @@
             background: #0f172a;
             animation: none;
         }
-        
+
         /* --- Keyframe Animations for Presets --- */
         @keyframes gradient-anim-1 {
             0% { background-position: 0% 50%; }
@@ -184,31 +184,38 @@
             100% { background-position: 0% 50%; }
         }
         /* --- End Background Presets --- */
-        
-        /* New keyframe for pulsing border effect */
-        @keyframes border-pulse {
-            0% { border: 1px solid rgba(255, 255, 255, 0.1); }
-            50% { border: 1px solid var(--on-air-color); box-shadow: 0 0 10px var(--on-air-color); }
-            100% { border: 1px solid rgba(255, 255, 255, 0.1); }
-        }
 
+        /* Pulsing animation for the ON AIR indicator border */
+        @keyframes on-air-pulse {
+            0% { border-color: var(--on-air-color); box-shadow: 0 0 5px var(--on-air-color), 0 0 10px var(--on-air-color), 0 0 15px var(--on-air-color); }
+            50% { border-color: rgba(255, 255, 255, 0.1); box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.37); }
+            100% { border-color: var(--on-air-color); box-shadow: 0 0 5px var(--on-air-color), 0 0 10px var(--on-air-color), 0 0 15px var(--on-air-color); }
+        }
+        
         .glass-container {
             backdrop-filter: blur(10px);
             background-color: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 4px solid rgba(255, 255, 255, 0.1); /* Default border */
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             position: relative;
-            transition: transform 0.5s ease-in-out; /* Added for smooth zoom */
+            transition: transform 0.5s ease-in-out, border 0.5s ease, box-shadow 0.5s ease;
+        }
+        
+        /* New class for the active ON AIR border with a neon glow */
+        .on-air-active-border {
+            border: 4px solid var(--on-air-color);
+            box-shadow: 0 0 10px var(--on-air-color), 0 0 20px var(--on-air-color), 0 0 30px var(--on-air-color);
+            transition: all 0.5s ease;
         }
 
         .glass-container.fullscreen-zoom {
-            transform: scale(1.4);
+            transform: scale(1.7);
         }
 
         .neon-text {
             text-shadow: 0 0 5px var(--neon-color), 0 0 10px var(--neon-color), 0 0 20px var(--neon-color), 0 0 40px var(--neon-color), 0 0 80px var(--neon-color);
         }
-        
+
         .on-air-indicator {
             backdrop-filter: blur(5px);
             background-color: rgba(255, 255, 255, 0.08);
@@ -226,34 +233,49 @@
             font-weight: 600;
             font-size: 1.25rem;
             color: var(--on-air-color);
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
         }
-        
+
+        /* Class for the on-air indicator's pulsing border */
+        .on-air-indicator.pulsing-animation {
+            border: 2px solid var(--on-air-color);
+            animation: on-air-pulse 4s ease-in-out infinite;
+        }
+
         .on-air-indicator .dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
             background-color: var(--on-air-color);
-            box-shadow: 0 0 5px var(--on-air-color), 0 0 10px var(--on-air-color), 0 0 15px var(--on-air-color);
+            box-shadow: 0 0 0 1px var(--neon-color);
+        }
+
+        /* NEW: Replaced glowing text-shadow with a crisp outline */
+        .on-air-indicator span {
+            text-shadow: 
+                1px 1px 0 var(--neon-color), 
+                -1px -1px 0 var(--neon-color),
+                1px -1px 0 var(--neon-color),
+                -1px 1px 0 var(--neon-color);
         }
 
         .progress-dots {
             position: absolute;
-            bottom: 12px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             justify-content: center;
-            width: 90%;
+            width: 92%;
             pointer-events: none;
         }
-        
+
         .progress-dot {
-            width: 15px;
+            width: 20px;
             height: 15px;
             background-color: rgba(0, 255, 255, 0.2);
             border-radius: 30%;
-            margin: 0 1.8px;
+            margin: 0 1px;
             transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
 
@@ -273,7 +295,7 @@
 
         .glass-btn:hover {
             background-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.5);
+            box-shadow: 0 4-16px 0 rgba(31, 38, 135, 0.5);
         }
 
         .glass-btn:active {
@@ -292,7 +314,7 @@
             max-height: 80vh;
             overflow-y: auto;
         }
-        
+
         /* New styling for color picker and select */
         .color-picker-label {
             width: 100%;
@@ -352,7 +374,7 @@
             border-color: rgba(255, 255, 255, 0.3);
             background-color: rgba(255, 255, 255, 0.1);
         }
-        
+
         .glass-button {
             background-color: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -368,11 +390,6 @@
             100% { transform: scale(1); }
         }
 
-        /* --- Updated to apply animation to both elements --- */
-        .border-pulse-animation {
-            animation: border-pulse 1.5s ease-in-out infinite;
-        }
-        
         /* New styling for section dividers */
         .section-divider {
             border: none;
@@ -381,7 +398,7 @@
             margin: 2rem 0;
             position: relative;
         }
-        
+
         .section-divider::before {
             content: '';
             position: absolute;
@@ -393,7 +410,7 @@
             background-color: rgba(255, 255, 255, 0.3);
             border-radius: 1.5px;
         }
-        
+
         /* Enhance heading visibility */
         .settings-heading {
             font-size: 1.5rem; /* Increased font size */
@@ -425,7 +442,7 @@
         </svg>
     </button>
 
-    <div id="main-clock-container" class="glass-container p-10 md:p-16 rounded-3xl w-full max-w-2xl space-y-8 text-center">
+    <div id="main-clock-container" class="glass-container p-10 md:p-16 rounded-3xl w-full max-w-3xl space-y-8 text-center">
 
         <!-- ON AIR Indicator -->
         <div id="on-air-indicator" class="on-air-indicator z-10 hidden">
@@ -438,7 +455,7 @@
             <p id="current-time" class="neon-text text-7xl md:text-9xl leading-none tracking-wide font-normal"></p>
             <p id="current-date" class="text-3xl md:text-4xl font-light text-white opacity-80"></p>
         </div>
-        
+
         <!-- The new progress bar with dots -->
         <div id="progress-dots-container" class="progress-dots"></div>
 
@@ -503,9 +520,9 @@
                     <option value="bg-preset-dark-static">Dark Static</option>
                 </select>
             </div>
-            
+
             <hr class="section-divider">
-            
+
             <!-- Time & Format -->
             <div class="mb-6">
                 <h3 class="settings-heading">Time & Format</h3>
@@ -520,7 +537,7 @@
             </div>
 
             <hr class="section-divider">
-            
+
             <!-- Schedule Settings -->
             <div class="mb-6">
                 <h3 class="settings-heading">"ON AIR" Schedule</h3>
@@ -538,9 +555,9 @@
                 </div>
                 <button id="add-schedule-btn" class="w-full mt-4 glass-button text-white font-bold py-2 px-4 rounded-xl">Add New Schedule</button>
             </div>
-            
+
             <hr class="section-divider">
-            
+
             <!-- "ON AIR" Indicator Settings (moved to the end) -->
             <div class="mb-6">
                 <h3 class="settings-heading">"ON AIR" Indicator</h3>
@@ -573,7 +590,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Close button -->
             <div class="text-center">
                 <button id="close-modal-btn" class="mt-4 w-full glass-btn px-4 py-2 rounded-xl">Close</button>
@@ -581,7 +598,7 @@
 
         </div>
     </div>
-    
+
     <!-- Edit/Add Schedule Modal -->
     <div id="edit-schedule-modal" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none">
         <div class="modal-content w-full max-w-sm p-6 rounded-2xl">
@@ -653,7 +670,7 @@
             const dayCheckboxes = document.querySelectorAll('#edit-schedule-modal input[type="checkbox"]');
             const saveScheduleBtn = document.getElementById('save-schedule-btn');
             const cancelScheduleBtn = document.getElementById('cancel-schedule-btn');
-            
+
             let editingIndex = -1;
 
             // --- Default and Stored Data ---
@@ -663,10 +680,10 @@
                 { start: '21:00', end: '22:30', days: [1] },
                 { start: '20:00', end: '21:30', days: [4] },
             ];
-            
+
             // Initial load for manual toggle state from localStorage
             manualOnAirToggle.checked = JSON.parse(localStorage.getItem('manualOnAirState')) || false;
-            
+
             // --- Helper Functions ---
             const allBgPresets = [
                 'bg-preset-purple-cyan', 'bg-preset-green', 'bg-preset-red-orange',
@@ -705,7 +722,7 @@
                     `;
                     scheduleList.appendChild(scheduleItem);
                 });
-                
+
                 // Add event listeners to the new buttons
                 scheduleList.querySelectorAll('.edit-btn').forEach(btn => {
                     btn.addEventListener('click', (e) => {
@@ -723,6 +740,7 @@
 
             function openEditModal(index = -1) {
                 editingIndex = index;
+                settingsModal.classList.add('opacity-0', 'pointer-events-none');
                 editScheduleModal.classList.remove('opacity-0', 'pointer-events-none');
 
                 if (index === -1) {
@@ -743,6 +761,7 @@
 
             function closeEditModal() {
                 editScheduleModal.classList.add('opacity-0', 'pointer-events-none');
+                settingsModal.classList.remove('opacity-0', 'pointer-events-none');
             }
 
             function saveScheduleItem() {
@@ -766,7 +785,7 @@
                     // In a real app, you would show a user-friendly error message.
                 }
             }
-            
+
             function deleteSchedule(index) {
                 schedule.splice(index, 1);
                 saveSchedule();
@@ -783,7 +802,7 @@
                     if (item.days.includes(currentDay)) {
                         const [startHours, startMinutes] = item.start.split(':').map(Number);
                         const [endHours, endMinutes] = item.end.split(':').map(Number);
-                        
+
                         const startMinutesTotal = startHours * 60 + startMinutes;
                         const endMinutesTotal = endHours * 60 + endMinutes;
 
@@ -797,15 +816,15 @@
             function updateClock() {
                 const now = new Date();
                 const seconds = now.getSeconds();
-                
+
                 // Format time and date based on the toggle state
-                const timeOptions = { 
-                    hour: '2-digit', 
-                    minute: '2-digit', 
-                    second: '2-digit', 
-                    hour12: !timeFormatToggle.checked 
+                const timeOptions = {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: !timeFormatToggle.checked
                 };
-                
+
                 // Manually format the date to DD/MM/YYYY
                 const day = String(now.getDate()).padStart(2, '0');
                 const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
@@ -816,7 +835,7 @@
 
                 currentTimeEl.innerText = timeString;
                 currentDateEl.innerText = dateString;
-                
+
                 // --- Update the ON AIR indicator based on schedule and manual toggle ---
                 const isManual = manualOnAirToggle.checked;
                 const isScheduled = scheduleEnabledToggle.checked && isTimeInSchedule(now);
@@ -825,19 +844,20 @@
 
                 if (isOnAir) {
                     onAirIndicator.classList.remove('hidden');
+                    // Add the "light up" border with glow to the main clock container
+                    mainClockContainer.classList.add('on-air-active-border');
                     if (isPulsing) {
-                        mainClockContainer.classList.add('border-pulse-animation');
-                        onAirIndicator.classList.add('border-pulse-animation'); // Apply to ON AIR indicator
+                        onAirIndicator.classList.add('pulsing-animation'); // Apply pulsing to the indicator
                     } else {
-                        mainClockContainer.classList.remove('border-pulse-animation');
-                        onAirIndicator.classList.remove('border-pulse-animation'); // Remove from ON AIR indicator
+                        onAirIndicator.classList.remove('pulsing-animation');
                     }
                 } else {
                     onAirIndicator.classList.add('hidden');
-                    mainClockContainer.classList.remove('border-pulse-animation');
-                    onAirIndicator.classList.remove('border-pulse-animation');
+                    // Remove both special borders when not ON AIR
+                    mainClockContainer.classList.remove('on-air-active-border');
+                    onAirIndicator.classList.remove('pulsing-animation');
                 }
-                
+
                 // --- Update the progress dots for seconds with new animation ---
                 if (seconds === 0) {
                     // Light up the first dot immediately for the new minute
@@ -852,10 +872,12 @@
                 } else {
                     // Normal update: light up the current dot and keep others as they are
                     for (let i = 0; i < dots.length; i++) {
-                        if (i < seconds) {
-                            if (dots[i]) dots[i].classList.add('active');
-                        } else {
-                            if (dots[i]) dots[i].classList.remove('active');
+                        if (dots[i]) {
+                           if (i <= seconds) {
+                                dots[i].classList.add('active');
+                            } else {
+                                dots[i].classList.remove('active');
+                            }
                         }
                     }
                 }
@@ -881,7 +903,7 @@
                     mainClockContainer.classList.remove('fullscreen-zoom');
                 }
             });
-            
+
             document.addEventListener('fullscreenchange', () => {
                 if (!document.fullscreenElement) {
                     mainClockContainer.classList.remove('fullscreen-zoom');
@@ -895,7 +917,7 @@
             closeModalBtn.addEventListener('click', () => {
                 settingsModal.classList.add('opacity-0', 'pointer-events-none');
             });
-            
+
             settingsModal.addEventListener('click', (e) => {
                 if (e.target === settingsModal) {
                     settingsModal.classList.add('opacity-0', 'pointer-events-none');
@@ -909,7 +931,7 @@
             saveScheduleBtn.addEventListener('click', saveScheduleItem);
 
             cancelScheduleBtn.addEventListener('click', closeEditModal);
-            
+
             editScheduleModal.addEventListener('click', (e) => {
                 if (e.target === editScheduleModal) {
                     closeEditModal();
@@ -917,7 +939,7 @@
             });
 
             // --- Settings Functionality ---
-            
+
             // Background preset selector
             bgPresetSelect.addEventListener('change', (e) => {
                 // Remove all background classes from the body
@@ -942,15 +964,17 @@
                 const newFont = e.target.value;
                 root.style.setProperty('--body-font', newFont);
             });
-            
+
             // --- ON AIR Indicator Settings ---
             function updateOnAirIndicatorControls() {
-                const isPulsing = onAirPulseToggle.checked;
-                onAirDot.classList.toggle('pulse-animation', isPulsing);
+                // Update the color variable and text
                 root.style.setProperty('--on-air-color', onAirColorPicker.value);
                 onAirText.innerText = onAirTextInput.value || "ON AIR";
+
+                // This will trigger a re-check of the ON AIR status and animations
+                updateClock();
             }
-            
+
             // Initial state for on-air controls
             updateOnAirIndicatorControls();
 
@@ -970,7 +994,7 @@
             // Start the clock and update it every second
             setInterval(updateClock, 1000);
             updateClock();
-            
+
             // Initial render of the schedule
             renderSchedule();
         };
