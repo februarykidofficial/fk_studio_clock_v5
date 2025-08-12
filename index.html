@@ -203,7 +203,7 @@
         
         /* New class for the active ON AIR border with a neon glow */
         .on-air-active-border {
-            border: 4px solid var(--on-air-color);
+            border: 1px solid var(--on-air-color);
             box-shadow: 0 0 10px var(--on-air-color), 0 0 20px var(--on-air-color), 0 0 30px var(--on-air-color);
             transition: all 0.5s ease;
         }
@@ -238,7 +238,7 @@
 
         /* Class for the on-air indicator's pulsing border */
         .on-air-indicator.pulsing-animation {
-            border: 2px solid var(--on-air-color);
+            border: 1px solid var(--on-air-color);
             animation: on-air-pulse 4s ease-in-out infinite;
         }
 
@@ -247,16 +247,16 @@
             height: 12px;
             border-radius: 50%;
             background-color: var(--on-air-color);
-            box-shadow: 0 0 0 1px var(--neon-color);
+            box-shadow: 0 0 0 0.5px white;
         }
 
         /* NEW: Replaced glowing text-shadow with a crisp outline */
         .on-air-indicator span {
-            text-shadow: 
-                1px 1px 0 var(--neon-color), 
-                -1px -1px 0 var(--neon-color),
-                1px -1px 0 var(--neon-color),
-                -1px 1px 0 var(--neon-color);
+             text-shadow: 
+                 0.5px 0.5px 0 white, 
+                -0.5px -0.5px 0 white,
+                0.5px -0.5px 0 white,
+                -0.5px 0.5px 0 white;                          
         }
 
         .progress-dots {
@@ -267,7 +267,7 @@
             display: flex;
             justify-content: center;
             width: 92%;
-            pointer-events: none;
+            pointer-events: none;            
         }
 
         .progress-dot {
@@ -280,8 +280,11 @@
         }
 
         .progress-dot.active {
-            background-color: var(--neon-color);
-            box-shadow: 0 0 12px var(--neon-color);
+            background-color: white;
+            box-shadow: 0 0 5px var(--neon-color),
+        0 0 10px var(--neon-color),
+        0 0 20px var(--neon-color),
+        0 0 30px var(--neon-color);;
         }
 
         .glass-btn {
@@ -478,11 +481,26 @@
             <!-- Main Display Settings -->
             <div class="mb-6">
                 <h3 class="settings-heading">Main Display</h3>
-                <!-- Neon Color Picker -->
+                <!-- Scale Factor -->
+                <div class="mt-4">
+                    <label id="scale-label" class="text-lg mb-2">Clock Size (100%)</label>
+                    <input type="range" id="scale-slider" min="0.5" max="2" step="0.1" value="1" class="w-full">
+                </div>
+                <!-- Neon Color Picker as Swatches -->
                 <div class="mb-4">
-                    <label class="text-lg mb-2 color-picker-label">Neon Color:
-                        <input type="color" id="color-picker" value="#00FFFF">
-                    </label>
+                    <p class="text-lg mb-2">Neon Color:</p>
+                    <div id="neon-color-grid" class="grid grid-cols-5 gap-2">
+                        <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#00FFFF" data-color="#00FFFF"></div>
+                        <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#FF00FF" data-color="#FF00FF"></div>
+                        <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#FFFF00" data-color="#FFFF00"></div>
+                        <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#00FF00" data-color="#00FF00"></div>
+                        <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#FF0000" data-color="#FF0000"></div>
+                        <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#FFA500" data-color="#FFA500"></div>
+                        <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#FFFFFF" data-color="#FFFFFF"></div>
+                        <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#0000FF" data-color="#0000FF"></div>
+                        <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#008080" data-color="#008080"></div>
+                        <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#800080" data-color="#800080"></div>
+                    </div>
                 </div>
                 <!-- Font Style Selector -->
                 <div>
@@ -501,24 +519,25 @@
             <!-- Background Settings -->
             <div class="mb-6">
                 <h3 class="settings-heading">Background</h3>
-                <p class="text-lg mb-2">Background Preset:</p>
-                <select id="bg-preset-select" class="glass-select">
-                    <option value="bg-preset-purple-cyan" selected>Purple-Cyan</option>
-                    <option value="bg-preset-green">Green</option>
-                    <option value="bg-preset-red-orange">Red-Orange</option>
-                    <option value="bg-preset-ocean">Ocean</option>
-                    <option value="bg-preset-sunset">Sunset</option>
-                    <option value="bg-preset-forest">Forest</option>
-                    <option value="bg-preset-magenta-blue">Magenta-Blue</option>
-                    <option value="bg-preset-gold">Gold</option>
-                    <option value="bg-preset-volcano">Volcano</option>
-                    <option value="bg-preset-sky">Sky</option>
-                    <option value="bg-preset-lime-teal">Lime-Teal</option>
-                    <option value="bg-preset-galaxy">Galaxy</option>
-                    <option value="bg-preset-peach">Peach</option>
-                    <option value="bg-preset-ice">Ice</option>
-                    <option value="bg-preset-dark-static">Dark Static</option>
-                </select>
+                <p class="text-lg mb-2">Background Presets:</p>
+                <div id="bg-preset-grid" class="grid grid-cols-5 gap-2">
+                    <div class="bg-preset-purple-cyan w-8 h-8 rounded cursor-pointer border border-white/20" data-preset="bg-preset-purple-cyan"></div>
+                    <div class="bg-preset-green w-8 h-8 rounded cursor-pointer border border-white/20" data-preset="bg-preset-green"></div>
+                    <div class="bg-preset-red-orange w-8 h-8 rounded cursor-pointer border border-white/20" data-preset="bg-preset-red-orange"></div>
+                    <div class="bg-preset-ocean w-8 h-8 rounded cursor-pointer border border-white/20" data-preset="bg-preset-ocean"></div>
+                    <div class="bg-preset-sunset w-8 h-8 rounded cursor-pointer border border-white/20" data-preset="bg-preset-sunset"></div>
+                    <div class="bg-preset-forest w-8 h-8 rounded cursor-pointer border border-white/20" data-preset="bg-preset-forest"></div>
+                    <div class="bg-preset-magenta-blue w-8 h-8 rounded cursor-pointer border border-white/20" data-preset="bg-preset-magenta-blue"></div>
+                    <div class="bg-preset-gold w-8 h-8 rounded cursor-pointer border border-white/20" data-preset="bg-preset-gold"></div>
+                    <div class="bg-preset-volcano w-8 h-8 rounded cursor-pointer border border-white/20" data-preset="bg-preset-volcano"></div>
+                    <div class="bg-preset-sky w-8 h-8 rounded cursor-pointer border border-white/20" data-preset="bg-preset-sky"></div>
+                    <div class="bg-preset-lime-teal w-8 h-8 rounded cursor-pointer border border-white/20" data-preset="bg-preset-lime-teal"></div>
+                    <div class="bg-preset-galaxy w-8 h-8 rounded cursor-pointer border border-white/20" data-preset="bg-preset-galaxy"></div>
+                    <div class="bg-preset-peach w-8 h-8 rounded cursor-pointer border border-white/20" data-preset="bg-preset-peach"></div>
+                    <div class="bg-preset-ice w-8 h-8 rounded cursor-pointer border border-white/20" data-preset="bg-preset-ice"></div>
+                    <div class="bg-preset-dark-static w-8 h-8 rounded cursor-pointer border border-white/20" data-preset="bg-preset-dark-static"></div>
+                </div>
+                
             </div>
 
             <hr class="section-divider">
@@ -577,8 +596,19 @@
                     </div>
                     <!-- Color Picker -->
                     <div class="flex items-center justify-between">
-                        <p class="text-lg">Indicator Color:</p>
-                        <input type="color" id="on-air-color-picker" value="#FF0000">
+                        <p class="text-lg mb-2">Indicator Color:</p>
+                        <div id="on-air-color-grid" class="grid grid-cols-5 gap-2">
+                            <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#FF0000" data-color="#FF0000"></div>
+                            <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#FFFFFF" data-color="#FFFFFF"></div>
+                            <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#FFFF00" data-color="#FFFF00"></div>
+                            <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#00FF00" data-color="#00FF00"></div>
+                            <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#00FFFF" data-color="#00FFFF"></div>
+                            <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#FFA500" data-color="#FFA500"></div>
+                            <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#FF00FF" data-color="#FF00FF"></div>
+                            <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#0000FF" data-color="#0000FF"></div>
+                            <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#008080" data-color="#008080"></div>
+                            <div class="w-8 h-8 rounded cursor-pointer border border-white/20" style="background:#800080" data-color="#800080"></div>
+                        </div>
                     </div>
                     <!-- Pulse Toggle -->
                     <div class="flex items-center justify-between">
@@ -938,49 +968,121 @@
                 }
             });
 
+            
+            // === Custom UI Logic for new controls ===
+            const scaleSlider = document.getElementById('scale-slider');
+            const scaleLabel = document.getElementById('scale-label');
+            let savedScale = parseFloat(localStorage.getItem('clockScale')) || 1;
+            mainClockContainer.style.transform = `scale(${savedScale})`;
+            scaleSlider.value = savedScale;
+            scaleLabel.textContent = `Clock Size (${Math.round(savedScale*100)}%)`;
+            scaleSlider.addEventListener('input', e => {
+                const val = parseFloat(e.target.value);
+                mainClockContainer.style.transform = `scale(${val})`;
+                scaleLabel.textContent = `Clock Size (${Math.round(val*100)}%)`;
+                localStorage.setItem('clockScale', val);
+            });
+
+            const savedPreset = localStorage.getItem('bgPreset') || 'bg-preset-purple-cyan';
+            body.classList.remove(...allBgPresets);
+            body.classList.add(savedPreset);
+            document.querySelectorAll('#bg-preset-grid div').forEach(el=>{
+                if(el.dataset.preset===savedPreset) el.classList.add('ring-2','ring-white');
+                el.addEventListener('click',()=>{
+                    body.classList.remove(...allBgPresets);
+                    body.classList.add(el.dataset.preset);
+                    localStorage.setItem('bgPreset', el.dataset.preset);
+                    document.querySelectorAll('#bg-preset-grid div').forEach(b=>b.classList.remove('ring-2','ring-white'));
+                    el.classList.add('ring-2','ring-white');
+                });
+            });
+
+            const savedNeon = localStorage.getItem('neonColor') || '#00FFFF';
+            root.style.setProperty('--neon-color', savedNeon);
+            document.querySelectorAll('#neon-color-grid div').forEach(el=>{
+                if(el.dataset.color===savedNeon) el.classList.add('ring-2','ring-white');
+                el.addEventListener('click',()=>{
+                    root.style.setProperty('--neon-color', el.dataset.color);
+                    localStorage.setItem('neonColor', el.dataset.color);
+                    document.querySelectorAll('#neon-color-grid div').forEach(b=>b.classList.remove('ring-2','ring-white'));
+                    el.classList.add('ring-2','ring-white');
+                });
+            });
+
+            const savedOnAir = localStorage.getItem('onAirColor') || '#FF0000';
+            root.style.setProperty('--on-air-color', savedOnAir);
+            document.querySelectorAll('#on-air-color-grid div').forEach(el=>{
+                if(el.dataset.color===savedOnAir) el.classList.add('ring-2','ring-white');
+                el.addEventListener('click',()=>{
+                    root.style.setProperty('--on-air-color', el.dataset.color);
+                    localStorage.setItem('onAirColor', el.dataset.color);
+                    document.querySelectorAll('#on-air-color-grid div').forEach(b=>b.classList.remove('ring-2','ring-white'));
+                    el.classList.add('ring-2','ring-white');
+                });
+            });
+
             // --- Settings Functionality ---
 
             // Background preset selector
-            bgPresetSelect.addEventListener('change', (e) => {
-                // Remove all background classes from the body
-                body.classList.remove(...allBgPresets);
-                // Add the selected background class
-                body.classList.add(e.target.value);
-            });
-
-            // Time format toggle
+                        // Time format toggle
             timeFormatToggle.addEventListener('change', () => {
                 updateClock();
             });
 
             // Neon Color picker
-            colorPicker.addEventListener('input', (e) => {
-                const newColor = e.target.value;
-                root.style.setProperty('--neon-color', newColor);
-            });
-
-            // Font select
+                        // Font select
             fontSelect.addEventListener('change', (e) => {
                 const newFont = e.target.value;
                 root.style.setProperty('--body-font', newFont);
             });
 
             // --- ON AIR Indicator Settings ---
-            function updateOnAirIndicatorControls() {
-                // Update the color variable and text
-                root.style.setProperty('--on-air-color', onAirColorPicker.value);
-                onAirText.innerText = onAirTextInput.value || "ON AIR";
+            
+function updateOnAirIndicatorControls() {
+                // Determine ON AIR color: prefer legacy input, else use saved value or selected swatch
+                let onAirColorValue = null;
+                try {
+                    if (typeof onAirColorPicker !== 'undefined' && onAirColorPicker && onAirColorPicker.value) {
+                        onAirColorValue = onAirColorPicker.value;
+                    }
+                } catch (e) { /* ignore */ }
+                if (!onAirColorValue) {
+                    // check swatch selection
+                    const sel = document.querySelector('#on-air-color-grid .ring-2');
+                    if (sel && sel.dataset && sel.dataset.color) onAirColorValue = sel.dataset.color;
+                }
+                if (!onAirColorValue) {
+                    onAirColorValue = localStorage.getItem('onAirColor') || '#FF0000';
+                }
+                root.style.setProperty('--on-air-color', onAirColorValue);
 
-                // This will trigger a re-check of the ON AIR status and animations
-                updateClock();
+                // Indicator text: prefer the input if present, else use stored value or default
+                let onAirTextValue = null;
+                try {
+                    if (typeof onAirTextInput !== 'undefined' && onAirTextInput && onAirTextInput.value) {
+                        onAirTextValue = onAirTextInput.value;
+                    }
+                } catch (e) {}
+                if (!onAirTextValue) {
+                    onAirTextValue = localStorage.getItem('onAirText') || 'ON AIR';
+                }
+                onAirText.innerText = onAirTextValue;
+
+                // Save updated text/color back to storage for persistence
+                localStorage.setItem('onAirColor', onAirColorValue);
+                localStorage.setItem('onAirText', onAirTextValue);
+
+                // Trigger a refresh of the clock/indicator visuals
+                try { updateClock(); } catch (e) { console.error(e); }
             }
 
             // Initial state for on-air controls
+
             updateOnAirIndicatorControls();
 
-            onAirTextInput.addEventListener('input', updateOnAirIndicatorControls);
-            onAirColorPicker.addEventListener('input', updateOnAirIndicatorControls);
-            onAirPulseToggle.addEventListener('change', updateOnAirIndicatorControls);
+            if (onAirTextInput) { onAirTextInput.addEventListener('input', updateOnAirIndicatorControls); }
+            if (onAirColorPicker) { onAirColorPicker.addEventListener('input', updateOnAirIndicatorControls); }
+            if (onAirPulseToggle) { onAirPulseToggle.addEventListener('change', updateOnAirIndicatorControls); }
             manualOnAirToggle.addEventListener('change', () => {
                 localStorage.setItem('manualOnAirState', manualOnAirToggle.checked);
                 updateClock();
